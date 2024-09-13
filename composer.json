@@ -1,0 +1,43 @@
+{
+    "type": "think-admin-plugin",
+    "name": "xiaochao/plugs-fund",
+    "version": "dev-master",
+    "authors": [
+        {
+            "name": "叶落无痕",
+            "email": "zxcaile@foxmail.com"
+        }
+    ],
+    "require": {
+        "php": ">7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "plugin\\fund\\": "src"
+        }
+    },
+    "extra": {
+        "config": {
+            "type": "plugin",
+            "name": "资金管理",
+            "cover": "iconfont iconfont-redpacket",
+            "description": "资金模块，包含：余额积分的充值,余额记录,积分记录"
+        },
+        "think": {
+            "services": [
+                "plugin\\fund\\Service"
+            ]
+        },
+        "plugin": {
+            "copy": {
+                "stc/database": "database/migrations"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "zoujingli/think-install": true
+        }
+    }
+}
