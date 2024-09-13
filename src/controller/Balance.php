@@ -9,7 +9,10 @@ use plugin\account\model\PluginAccountUser;
 use plugin\fund\model\PluginFundBalance;
 use plugin\fund\service\Balance as BalanceService;
 use think\admin\Controller;
+use think\admin\Exception;
+use think\admin\extend\CodeExtend;
 use think\admin\helper\QueryHelper;
+use think\admin\service\AdminService;
 use think\exception\HttpResponseException;
 
 /**
@@ -42,6 +45,57 @@ class Balance extends Controller
             if ($db->getOptions('where')) $query->whereRaw("unid in {$db->field('id')->buildSql()}");
         });
     }
+
+    /**
+     * 余额充值
+     * @auth true
+     */
+    public function add()
+    {
+        PluginFundBalance::mForm('form');
+    }
+
+    /**
+     * 表单回调处理
+     * @param array $data
+     * @return void
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    protected function _form_filter(array &$data)
+    {
+        if (empty($data['code'])) {
+            $data['code'] = CodeExtend::uniqidNumber(16, 'CZ');
+        }
+        if ($this->request->isGet()) {
+            $data['unid'] = $data['unid'] ?? input('unid', 0);
+            $this->user = PluginAccountUser::extraItem(intval($data['unid']),PluginFundBalance::$Types);
+            if (empty($this->user)) $this->error('无效用户信息！');
+        } else try {
+            $data = $this->_vali([
+                'name.default'   => '平台充值',
+                'code.require'   => '单号不能为空！',
+                'unid.require'   => '用户不能为空！',
+                'amount.require' => '金额不能为空！',
+                'remark.default' => '后台余额操作！',
+            ], $data);
+            if (empty(floatval($data['amount']))) {
+                $this->error('充值金额不能为零！');
+            }
+            $this->app->db->transaction(static function () use ($data) {
+                $data['create_by'] = AdminService::getUserId();
+                // 创建余额变更
+                BalanceService::create(intval($data['unid']), $data['code'], $data['name'], floatval($data['amount']), $data['remark'], true);
+            });
+            $this->success('余额充值成功！');
+        } catch (HttpResponseException $exception) {
+            throw $exception;
+        } catch (\Exception $exception) {
+            $this->error($exception->getMessage());
+        }
+    }
+
 
     /**
      * 交易锁定处理

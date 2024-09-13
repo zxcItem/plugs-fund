@@ -17,12 +17,16 @@
                 {field: 'id', hide: true},
                 {checkbox: true, fixed: true},
                 {field: 'headimg', title: '头像', width: 60, align: 'center', templet: '<div>{{-showTableImage(d.headimg,true,"xs")}}</div>'},
-                {field: 'code', title: '用户编号', minWidth: 100, align: 'center', templet: '<div>{{d.code||"-"}}</div>'},
-                {field: 'phone', title: '绑定手机', minWidth: 110, align: 'center', templet: '<div>{{d.phone||"-"}}</div>'},
-                {field: 'username', title: '用户姓名', minWidth: 100, align: 'center', templet: '<div>{{d.username||"-"}}</div>'},
                 {field: 'nickname', title: '用户昵称', minWidth: 100, align: 'center', templet: '<div>{{d.nickname||"-"}}</div>'},
-                {field: 'create_time', title: '绑定时间', align: 'center', minWidth: 170, sort: true},
-                {toolbar: '#toolbar', title: '操作面板', align: 'center', minWidth: 100, fixed: 'right'}
+                {field: 'balance_total', title: '充值余额', minWidth: 100, align: 'center', templet: '<div>{{d.extra.balance_total||"-"}}</div>'},
+                {field: 'balance_lock', title: '锁定余额', minWidth: 100, align: 'center', templet: '<div>{{d.extra.balance_lock||"-"}}</div>'},
+                {field: 'balance_usable', title: '剩余余额', minWidth: 100, align: 'center', templet: '<div>{{d.extra.balance_usable||"-"}}</div>'},
+                {field: 'balance_used', title: '支出余额', minWidth: 100, align: 'center', templet: '<div>{{d.extra.balance_used||"-"}}</div>'},
+                {field: 'integral_total', title: '充值积分', minWidth: 100, align: 'center', templet: '<div>{{d.extra.integral_total||"-"}}</div>'},
+                {field: 'integral_total', title: '锁定积分', minWidth: 100, align: 'center', templet: '<div>{{d.extra.integral_total||"-"}}</div>'},
+                {field: 'integral_total', title: '剩余积分', minWidth: 100, align: 'center', templet: '<div>{{d.extra.integral_total||"-"}}</div>'},
+                {field: 'integral_used', title: '支出积分', minWidth: 100, align: 'center', templet: '<div>{{d.extra.integral_used||"-"}}</div>'},
+                {toolbar: '#toolbar', title: '操作面板', align: 'center', minWidth: 150, fixed: 'right'}
             ]]
         });
     });
