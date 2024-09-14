@@ -4,10 +4,6 @@ declare (strict_types=1);
 
 namespace plugin\fund\model;
 
-use plugin\account\model\Abs;
-use plugin\account\model\PluginAccountUser;
-use think\model\relation\HasOne;
-
 /**
  * 用户积分模型
  * @class PluginFundIntegral

@@ -1,6 +1,5 @@
 <?php
 
-
 declare (strict_types=1);
 
 namespace plugin\fund\controller;
@@ -9,7 +8,6 @@ use plugin\account\model\PluginAccountUser;
 use plugin\fund\model\PluginFundBalance;
 use plugin\fund\service\Balance as BalanceService;
 use think\admin\Controller;
-use think\admin\Exception;
 use think\admin\extend\CodeExtend;
 use think\admin\helper\QueryHelper;
 use think\admin\service\AdminService;

@@ -11,7 +11,7 @@ use think\admin\Exception;
 /**
  * 用户积分调度器
  * @class Integral
- * @package plugin\payment\service
+ * @package plugin\fund\service
  */
 abstract class Integral
 {
